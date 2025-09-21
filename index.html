@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Text to Speech - Gemini AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">🎙️ VoiceGen AI</h1>
+            <div class="theme-toggle">
+                <button id="theme-toggle" class="theme-btn">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="text-input-section">
+                <h2 class="section-title">Convierte texto a voz con IA</h2>
+                <p class="section-subtitle">Utiliza la tecnología de Google Gemini para generar audio natural</p>
+
+                <div class="input-group">
+              <textarea
+                      id="text-input"
+                      class="text-input"
+                      placeholder="Escribe aquí el texto que quieres convertir a audio..."
+                      rows="6"
+              ></textarea>
+
+                    <div class="controls">
+                        <div class="voice-settings">
+                            <div class="setting-group">
+                                <label for="voice-select" class="setting-label">Voz:</label>
+                                <select id="voice-select" class="setting-select">
+                                    <option value="Kore">Kore (Firme)</option>
+                                    <option value="Puck">Puck (Optimista)</option>
+                                    <option value="Zephyr">Zephyr (Iluminación)</option>
+                                    <option value="Fenrir">Fenrir (Excitabilidad)</option>
+                                    <option value="Aoede">Aoede (Breezy)</option>
+                                    <option value="Charon">Charon (Informativa)</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="style-input" class="setting-label">Estilo (opcional):</label>
+                                <input
+                                        id="style-input"
+                                        type="text"
+                                        class="setting-input"
+                                        placeholder="ej: alegre, susurrando, emocionado"
+                                />
+                            </div>
+
+                            <div class="setting-group">
+                                <label for="api-key-input" class="setting-label">API Key de Google Gemini:</label>
+                                <input
+                                        id="api-key-input"
+                                        type="text"
+                                        class="setting-input"
+                                        placeholder="Introduce tu API key aquí"
+                                        autocomplete="off"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button id="clear-btn" class="btn btn-secondary">Limpiar</button>
+                            <button id="generate-btn" class="btn btn-primary">
+                                <span class="btn-text">Generar Audio</span>
+                                <span class="btn-loading" style="display: none;">Generando...</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="audio-section" class="audio-section" style="display: none;">
+                <div class="audio-card">
+                    <h3 class="audio-title">Audio generado</h3>
+                    <div class="audio-controls">
+                        <audio id="audio-player" controls class="audio-player">
+                            Tu navegador no soporta el elemento de audio.
+                        </audio>
+                        <button id="download-btn" class="btn btn-accent">Descargar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error-section" class="error-section" style="display: none;">
+                <div class="error-card">
+                    <h3 class="error-title">Error</h3>
+                    <p id="error-message" class="error-message"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script type="module" src="/src/renderer.ts"></script>
+</body>
+</html>
