@@ -21,15 +21,15 @@ export async function ttsGemini(text: string, voice: string, outputFile: string)
   const response = await ai.models.generateContent({
     model: "gemini-2.5-tts", // Ajusta el modelo según disponibilidad
     contents: [{ role: "user", parts: [{ text }] }],
-    response_modality: "audio",
     speech_config: {
       voice_config: {
         name: voice,
       },
     },
   });
-  // Obtener el audio de la respuesta (ajustar si la estructura es diferente)
-  const audioData = response.candidates?.[0]?.content?.parts?.[0]?.data;
-  if (!audioData) throw new Error("No se recibió audio de Gemini");
-  await saveWaveFile(outputFile, Buffer.from(audioData, 'base64'));
+  // Obtener el audio de la respuesta (usando inlineData.data)
+  const part = response.candidates?.[0]?.content?.parts?.[0];
+  const audioBase64 = part?.inlineData?.data;
+  if (!audioBase64) throw new Error("No se recibió audio de Gemini");
+  await saveWaveFile(outputFile, Buffer.from(audioBase64, 'base64'));
 }
