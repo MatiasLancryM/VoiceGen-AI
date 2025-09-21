@@ -6,6 +6,10 @@ on:
       - "v*" # cada vez que subas un tag como v1.0.0 se dispara
   workflow_dispatch:
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build:
     strategy:
@@ -41,4 +45,4 @@ jobs:
         with:
           files: out/make/**
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
