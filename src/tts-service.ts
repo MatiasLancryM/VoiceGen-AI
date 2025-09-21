@@ -20,7 +20,7 @@ export async function ttsGemini(text: string, voice: string, outputFile: string)
   const ai = new GoogleGenAI({});
   const response = await ai.models.generateContent({
     model: "gemini-2.5-tts", // Ajusta el modelo según disponibilidad
-    prompt: text,
+    contents: [{ role: "user", parts: [{ text }] }],
     response_modality: "audio",
     speech_config: {
       voice_config: {
@@ -28,6 +28,8 @@ export async function ttsGemini(text: string, voice: string, outputFile: string)
       },
     },
   });
-  // Suponiendo que response.audio contiene el buffer PCM
-  await saveWaveFile(outputFile, response.audio);
+  // Obtener el audio de la respuesta (ajustar si la estructura es diferente)
+  const audioData = response.candidates?.[0]?.content?.parts?.[0]?.data;
+  if (!audioData) throw new Error("No se recibió audio de Gemini");
+  await saveWaveFile(outputFile, Buffer.from(audioData, 'base64'));
 }
